@@ -1,0 +1,8 @@
+{
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/order/add-to-cart/[productid]/route": "app/api/order/add-to-cart/[productid]/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/(front)/page": "app/(front)/page.js",
+  "/(front)/cart/page": "app/(front)/cart/page.js",
+  "/(front)/[product_slug]/page": "app/(front)/[product_slug]/page.js"
+}
