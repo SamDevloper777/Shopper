@@ -12,6 +12,8 @@ export async function GET(req,res){
         if(session){
             let user = await User.findOne({email:session.user.email});
             let order = await Order.findOne({user:user._id,isOrder:false})
+            .populate("items.item")
+            
 
             return NextResponse.json({order},{status:200})
         }

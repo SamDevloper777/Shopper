@@ -1,5 +1,6 @@
 "use client"
 import { Card, CardBody, Typography, Avatar } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
 
 const customers = [
   {
@@ -39,30 +40,37 @@ const customers = [
   },
 ];
 
-export function CartList() {
+export function CartList({order}) {
+  const [cartData,setCartData] = useState([]);
+
+  useEffect(()=>{
+    fetch("http://localhost:3000/api/order")
+    .then(res =>res.json())
+    .then(res => setCartData(res));
+  },[])
   return (
     <Card className="w-full">
       <CardBody>
         
         <div className="divide-y divide-gray-200">
-          {customers.map(({ name, email, price, image }, index) => (
+          {cartData.order?.items?.map((orderItem, index) => (
             <div
               key={index}
               className="flex items-center justify-between pb-3 pt-3 last:pb-0"
             >
               <div className="flex items-center gap-x-3">
-                <Avatar size="xxl" variant="rounded" src={image} alt={name} />
+                <Avatar size="xxl" variant="rounded" src={`/productImages/${orderItem.item.image}`} alt="" />
                 <div>
                   <Typography color="blue-gray" variant="h6">
-                    {name}
+                    {orderItem.item.name}
                   </Typography>
                   <Typography variant="small" color="gray">
-                    {email}
+                    {orderItem.quantity}
                   </Typography>
                 </div>
               </div>
               <Typography color="blue-gray" variant="h6">
-                ${price}
+                {orderItem.price}
               </Typography>
             </div>
           ))}
